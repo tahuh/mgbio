@@ -8,5 +8,7 @@ setup(
         author_email = "2011133049y@gmail.com",
         url="https://github.com/tahuh/mgbio",
         download_url = "",
-        install_requires= []
+        install_requires= [],
+        packages="mgbio",
+        package_dir={"mgbio":"mgbio"}
 )

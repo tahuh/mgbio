@@ -48,7 +48,7 @@ class BEDReader:
         self.rownames = rownames
         if self.rownames == None:
             self.rownames = []
-            for i in range(self.rows)):
+            for i in range(self.rows):
                 self.rownames.append("row" + str(i+1))
         self.row2idx = { r : i for (i,r) in enumerate(self.rownames)}
     def nrows(self):

@@ -68,7 +68,7 @@ class VCFRecord:
                     except KeyError:
                         self.fmt_dict[k] = [value[kidx]]
 
-def VCFReader:
+class VCFReader:
     def __init__(self, fname=None):
         self.fname = fname
         self.fobj = None

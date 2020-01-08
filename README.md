@@ -1,6 +1,11 @@
 # mgbio
 Pure python modules to handle high-throughput sequencing files 
 
+## System tested and requirements
+Python >= 3.0
+
+Ubuntu 18.04
+
 ## Installation
 
 Follow command line below

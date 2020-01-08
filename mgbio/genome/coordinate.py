@@ -106,6 +106,43 @@ class GenomicRange:
             return True
         else:
             return False
+    def __sub__(self, o):
+        # returns genomic range A - genomic range B
+        #
+        # case I
+        # A : |----------------------|
+        # B :            |------------------|
+        # C : |----------|
+        #
+        # case II
+        # A :            |-------------------|
+        # B : |-----------------------|
+        # C :                         |------|
+        # case III
+        # A : |------------------------------|
+        # B :            |------------|
+        # C : |----------|            |------|
+        #
+        # if no intersection then A itself
+        # if different chromosome then return None
+        if (not self.is_valid()) or (not o.is_valid()):
+            return None, None
+        if self._chrom != o._chrom:
+            return None, None
+        if self._end < o._start:
+            # No intersection
+            return None, None
+        if self._start > o._end:
+            # No intersection
+            return None, None
+        if (self._start < = o._start) and  ( (self._end >= o._start)  and (self._end <= o._end)  ):
+            # case I
+            return GenomicRange(chrom=self._chrom, start= self._start, end=o._start) , None
+        if ((self._start >= o._start) and (self,_start <= o._end)) and (o._end <= self._end):
+            return None, GenomicRange(chrom=self._chrom, start = o._end, end=self._end)
+        if((self._start <= o,_start) and (self._end >= o._end)):
+            return GenomicRange(chrom=self._chrom, start=self._start, end=o._start), \
+                    GenomicRange(chrom=self._chrom,start=o._end, end=self._end)
     def __len__(self):
         return self._end - self._start + 1
     def union(self, o):
@@ -126,7 +163,7 @@ class GenomicRange:
                     return GenomicRange(chrom=self._chrom, start= o._start, end=self._end)
         else:
             return None
-
+    
     def has(self, o):
         # Another method compare to __contains__
         if (self._chrom != o._chrom):

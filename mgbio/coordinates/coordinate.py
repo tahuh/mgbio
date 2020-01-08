@@ -40,6 +40,12 @@ class GenomicRange:
             self._start = int(start)
         if end != None:
             self._end = int(end)
+    def is_valid(self):
+        if (self._chrom == None) or (self._start == None) (self._end == None):
+            return False
+        if self._start > self._end:
+            return False
+        return True
     def chrom(self):
         return self._chrom
     def start(self):
@@ -59,3 +65,72 @@ class GenomicRange:
     def __hash__(self):
         key_str = self._chrom + '_' + str(self._start) + '_'+ str(self._end)
         return hash(key_str)
+    def __contains__(self, coord):
+        if self._chrom == coord._chrom:
+            if (self._start >= coord._start) and (self._end >= coord._end):
+                return True
+            else:
+                return False
+        else:
+            return False
+    def __le__(self, o):
+        # x <= y
+        #       self
+        # |------------------|
+        #                    |-------------------|
+        #                      other
+        if (self._start <= o._start) and (self._end <= o._start):
+            return True
+        else:
+            return False
+        
+    def __lt__(self, o):
+        # x< y
+        if (self._start < o._start) and (self._end < o._start):
+            return True
+        else:
+            return False
+    def __ge__(self, o):
+        # x >= y
+        #                                 self
+        #                            |-----------------|
+        #   |------------------------|
+        #      other
+        if(self._start >= o._end) and (self._end >= o._end):
+            return True
+        else:
+            return False
+    def __gt__(self, o):
+        # x > y
+        if(self._start > o._end) and (self._end > o._end):
+            return True
+        else:
+            return False
+    def __len__(self):
+        return self._end - self._start + 1
+    def union(self, o):
+        # union conputation
+        if(self._chrom == o._chrom):
+            start_min = min(self._start, o._start)
+            end_min = min(o._start, o._end)
+            return GenomicRange(chrom=self._chrom, start=start_min, end=end_min)
+        else:
+            return None
+    def intersect(self, o):
+        if(self._chrom == o._chrom):
+            if self._end < o._start:
+                # two genomic ranges are far
+                return None
+            else:
+                if(o._start <= self._end) and (o._start >= self._start) and(self._end >= o._start) and (self._end <= o._end):
+                    return GenomicRange(chrom=self._chrom, start= o._start, end=self._end)
+        else:
+            return None
+
+    def has(self, o):
+        if (self._chrom != o._chrom):
+            return False
+        if((self._start >= o._start) and (self._end >= o,_end)):
+            return True
+        else:
+            return False

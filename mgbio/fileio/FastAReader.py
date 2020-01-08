@@ -24,13 +24,12 @@ class FastAReader:
     def rewind(self):
         self.fobj.seek(0)
     def close(self):
-        self.obj.close()
+        self.fobj.close()
     def parse(self):
         id = ''
         desc = ''
-        seq = ''
         seq_trail = []
-        for i, line in enumerate(self.fobj):
+        for line in enumerate(self.fobj):
             if line.startswith('>'):
                 if seq_trail:
                     yield id , desc, "".join(seq_trail)
@@ -39,7 +38,7 @@ class FastAReader:
                     desc = line.rstrip().split()[1]
                 except:
                     desc = ''
-                seq_tail = []
+                seq_trail = []
             else:
                 seq_trail.append(line.rstrip())
         if seq_trail:

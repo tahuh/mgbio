@@ -24,7 +24,7 @@ class FastQReader:
     def rewind(self):
         self.fobj.seek(0)
     def close(self):
-        self.obj.close()
+        self.fobj.close()
     def next(self):
         l1 = self.fobj.readline()
         id = l1.split()[0][1:]
@@ -35,6 +35,7 @@ class FastQReader:
         seq = self.fobj.readline().rstrip()
         self.fobj.readline()
         qual = self.fobj.readline().rstrip()
+        return id, desc, seq, qual
     def parse(self):
         id = ''
         desc = ''

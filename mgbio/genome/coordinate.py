@@ -135,7 +135,7 @@ class GenomicRange:
         if self._start > o._end:
             # No intersection
             return None, None
-        if (self._start < = o._start) and  ( (self._end >= o._start)  and (self._end <= o._end)  ):
+        if (self._start <= o._start) and  ( (self._end >= o._start)  and (self._end <= o._end)  ):
             # case I
             return GenomicRange(chrom=self._chrom, start= self._start, end=o._start) , None
         if ((self._start >= o._start) and (self,_start <= o._end)) and (o._end <= self._end):

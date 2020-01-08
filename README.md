@@ -18,7 +18,7 @@ $ sudo python setup.py install
 - genome : genome related classes
 
 ## License 
-MIT
+GPL v3
 
 ## Author
 

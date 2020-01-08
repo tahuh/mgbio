@@ -67,3 +67,37 @@ class VCFRecord:
                         self.fmt_dict[k].append(value[kidx])
                     except KeyError:
                         self.fmt_dict[k] = [value[kidx]]
+
+def VCFReader:
+    def __init__(self, fname=None):
+        self.fname = fname
+        self.fobj = None
+    def open(self, fname= None):
+        if self.fname == None:
+            if fname == None:
+                raise IOError("Cannot open NoneType VCF file")
+            else:
+                self.fname = fname
+        self.fobj = gzip_check(self.fname)
+        # VCF file has headers
+        # Get ready to access headers
+        self.headers = []
+        self.samples = None
+        for line in self.fobj:
+            if line[0] == '#':
+                self.headers.append(line.rstrip())
+                if line.startswith('#CHROM'):
+                    data = line.rstrip().split("\t")
+                    if len(data) > 8:
+                        self.samples = data[9:]
+                    break
+    def read1(self):
+        # reads only one record.
+        # No iteration
+        ln = self.fobj.readline().rstrip()
+        return VCFRecord(ln, sample_names = self.samples)
+    def parse(self):
+        for ln in self.fobj:
+            yield VCFRecord(ln, sample_names=self.samples)
+    def rewind(self):
+        self.fobj.seek(0)

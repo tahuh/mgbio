@@ -41,7 +41,7 @@ class BEDReader:
         # Now we make column data
         for cid in range(ncols):
             tmp = []
-            for rid in len(self.rows)):
+            for rid in len(self.rows):
                 tmp.append(self.rows[rid][cid])
             self.cols.append(tmp)
         # Setup rownames

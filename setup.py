@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
         name = "mgbio",
@@ -9,6 +9,5 @@ setup(
         url="https://github.com/tahuh/mgbio",
         download_url = "",
         install_requires= [],
-        packages=["mgbio"],
-        package_dir={"mgbio":"mgbio"}
+        packages=find_packages(),
 )

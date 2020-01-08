@@ -128,6 +128,7 @@ class GenomicRange:
             return None
 
     def has(self, o):
+        # Another method compare to __contains__
         if (self._chrom != o._chrom):
             return False
         if((self._start >= o._start) and (self._end >= o,_end)):

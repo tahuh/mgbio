@@ -9,6 +9,6 @@ setup(
         url="https://github.com/tahuh/mgbio",
         download_url = "",
         install_requires= [],
-        packages="mgbio",
+        packages=["mgbio"],
         package_dir={"mgbio":"mgbio"}
 )

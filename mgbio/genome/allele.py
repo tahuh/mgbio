@@ -37,3 +37,4 @@ class Allele(GenomicCoordinate):
             self._allele = allele
         else:
             self._allele = DNA(seq=allele)
+

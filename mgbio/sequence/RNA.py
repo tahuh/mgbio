@@ -29,18 +29,19 @@ class RNA:
     def __invert__(self):
         # Create complement using bit operation
         tmp = [ NUCLEOTIDES_COMP_DICT[b] for b in self.seq]
-        return DNA(seq = "".join(tmp))
+        return RNA(seq = "".join(tmp))
     def __add__(self, other):
         if(other.seq == None):
             raise Exception()
-        self.seq = self.seq + other.seq
+        seq = self.seq + other.seq
+        return RNA(seq=seq)
     def __getitem__(self, item):
         if isinstance(item, tuple):
-            return [self.seq[i] for i in item]
+            return RNA(seq = "".join([self.seq[i] for i in item]))
         elif isinstance(item, slice):
-            return self.seq[item]
+            return RNA(seq=self.seq[item])
         else:
-            return self.seq[item]
+            return RNA(seq=self.seq[item])
     def __setitem__(self, key, value):
         if isinstance(key, tuple):
             if len(key) != len(value):
@@ -58,13 +59,13 @@ class RNA:
             s_list = list(self.seq)
             s_list[key] = value
             self.seq = "".join(s_list)
-    def seq(self):
+    def get_seq(self):
         return self.seq
     def set_seq(self, seq):
         self.seq = seq
     def complement(self):
         tmp = [NUCLEOTIDES_COMP_DICT[b] for b in self.seq]
-        return DNA(seq = "".join(tmp))
+        return RNA(seq = "".join(tmp))
     def complement_inplace(self):
         tmp = self.complement()
         self.seq = tmp.seq

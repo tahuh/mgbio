@@ -13,7 +13,7 @@ class DNA:
     def __init__(self, seq=None):
         self.seq = seq
         if(self.seq != None):
-            self.seq = sefl.seq.upper()
+            self.seq = self.seq.upper()
     def __len__(self):
         if self.seq != None:
             return len(self.seq)
@@ -32,14 +32,15 @@ class DNA:
     def __add__(self, other):
         if(other.seq == None):
             raise Exception()
-        self.seq = self.seq + other.seq
+        seq = self.seq + other.seq
+        return DNA(seq=seq)
     def __getitem__(self, item):
         if isinstance(item, tuple):
-            return [self.seq[i] for i in item]
+            return DNA(seq="".join([self.seq[i] for i in item]))
         elif isinstance(item, slice):
-            return self.seq[item]
+            return DNA(self.seq[item])
         else:
-            return self.seq[item]
+            return DNA(self.seq[item])
     def __setitem__(self, key, value):
         if isinstance(key, tuple):
             if len(key) != len(value):
@@ -57,7 +58,7 @@ class DNA:
             s_list = list(self.seq)
             s_list[key] = value
             self.seq = "".join(s_list)
-    def seq(self):
+    def get_seq(self):
         return self.seq
     def set_seq(self, seq):
         self.seq = seq

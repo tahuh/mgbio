@@ -26,7 +26,7 @@ class Kmer(DNA):
             km = Kmer(seq = self.seq[1:] + base)
             kms.append(km)
         return kms
-    def gemerate_left_kmers(self):
+    def generate_left_kmers(self):
         kms = []
         for base in ['A', 'T', 'G', 'C']:
             km = Kmer(seq = base + self.seq[:-1])

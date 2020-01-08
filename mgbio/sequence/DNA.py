@@ -12,6 +12,8 @@ NUCLEOTIDES_COMP_DICT = { 'A' : 'T' , 'G' : 'C' , 'C' : 'G' , 'T' : 'A' , 'N' : 
 class DNA:
     def __init__(self, seq=None):
         self.seq = seq
+        if(self.seq != None):
+            self.seq = sefl.seq.upper()
     def __len__(self):
         if self.seq != None:
             return len(self.seq)

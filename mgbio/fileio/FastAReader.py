@@ -29,7 +29,7 @@ class FastAReader:
         id = ''
         desc = ''
         seq_trail = []
-        for line in enumerate(self.fobj):
+        for i, line in enumerate(self.fobj):
             if line.startswith('>'):
                 if seq_trail:
                     yield id , desc, "".join(seq_trail)
